@@ -1,6 +1,6 @@
-# 🔍 CodeHelper – Power Fx Snippet Assistant for Power Platform
+# Power Platform CodeHelper Snippets
 
-**CodeHelper** is a Chrome Extension designed for developers working with **Microsoft Power Apps** and **Power Automate**. It provides instant access to Power Fx and expression syntax, usage examples, and code snippets — all from your browser toolbar.
+**CodeHelper Snippets** is a Chrome Extension designed for developers working with **Microsoft Power Apps** and **Power Automate**. It provides instant access to Power Fx and expression syntax, usage examples, and code snippets — all from your browser toolbar.
 
 ---
 
