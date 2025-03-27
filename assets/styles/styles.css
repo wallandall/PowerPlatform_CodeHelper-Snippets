@@ -25,6 +25,18 @@ body {
   border-bottom: 2px solid var(--theme-color);
   padding-bottom: 8px;
 }
+.title-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-group h2 {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  color: var(--theme-color);
+  font-weight: normal;
+}
 
 h1 {
   margin: 0;
@@ -120,14 +132,20 @@ button {
 
 .function-table {
   width: 100%;
+  color: var(--theme-color);
   border-collapse: collapse;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.function-table th,
+.function-table th{
+  color: white;
+  background-color: var(--theme-color);
+}
+
+
 .function-table td {
-  border: 1px solid #ccc;
+  border: 1px solid var(--theme-color);
   padding: 8px;
   text-align: left;
 }
