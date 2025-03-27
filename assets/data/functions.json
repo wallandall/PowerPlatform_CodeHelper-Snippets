@@ -1,0 +1,209 @@
+{
+    "powerapps": {
+      "abs": {
+        "title":"Abs",
+        "syntax": "Abs( Number ), Abs( SingleColumnTable )",
+        "description": "The Abs function returns the non-negative value of its argument. If a number is negative, Abs returns the positive equivalent.",
+        "examples": [
+          {
+            "code": "Abs( -55 )",
+            "description": "Returns the number without the negative sign."
+          },
+          {
+            "code": "Abs( ValueTable )",
+            "description": "Returns the absolute value of each number in the table."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-numericals"
+      },"acceleration": {
+        "title":"Acceleration",
+        "syntax": "Acceleration",
+        "description": "The Acceleration signal returns the device's acceleration in three dimensions relative to the device's screen. Acceleration is measured in g units of 9.81 m/second2 or 32.2 ft/second2 (the acceleration that the Earth imparts to objects at its surface due to gravity).",
+        "examples": [
+          {
+            "code": "Acceleration.X",
+            "description": "Right and left. Right is a positive number."
+          },
+          {
+            "code": "Acceleration.Y",
+            "description": "Forward and back. Forward is a positive number."
+          },
+          {
+            "code": "Acceleration.Z",
+            "description": "Up and down. Up is a positive number."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/signals"
+      },
+      "acos": {
+        "title":"Acos",
+        "syntax": "Acos( Number ), Acos( SingleColumnTable )",
+        "description": "The Acos function returns the arccosine, or inverse cosine, of its argument. The arccosine is the angle whose cosine is the argument. The returned angle is given in radians in the range 0 (zero) to π.",
+        "examples": [
+          {
+            "code": "Acos( 0.5 )",
+            "description": "Returns the arccosine of 0.5, in radians, e.g: 1.047197..."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-trig"
+      },
+      "acot": {
+        "title":"Acot",
+        "syntax": "Acot( Number ), Acot( SingleColumnTable )",
+        "description": "The Acot function returns the principal value of the arccotangent, or inverse cotangent, of its argument. The returned angle is given in radians in the range 0 (zero) to π.",
+        "examples": [
+          {
+            "code": "Acot( 1 )",
+            "description": "Returns the arccotangent of 1, in radians, e.g.:0.785398..."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-trig"
+      },
+      "aiclassify": {
+        "title":"AIClassify",
+        "syntax": "AIClassify( Text, Categories )",
+        "description": "AIClassify classifies text into one of the provided categories. For example, the following list of categories can be used to classify issues submitted by your customers:Problem, Billing, How To, Licensing",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AIClassify( {Text:Subject, Categories: ['Housing', 'Food']} ).Classification )",
+            "description": "In Canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "aiextract": {
+        "title":"AIExtract",
+        "syntax": "AIExtract( Text, Entity )",
+        "description": "AIExtract extracts specified entities such as registration numbers, phone numbers, or names of people.",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AIExtract( {Text:Subject, Entity: 'State'} ).ExtractedText )",
+            "description": "In canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "aireply": {
+        "title":"AIReply",
+        "syntax": "AIReply( Text )",
+        "description": "AIReply drafts a reply to the message that you provide. For example, this function drafts a reply to a customer's review of a product.",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AIReply( {Text:Subject} ).PreparedResponse )",
+            "description": "In canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "aisentiment": {
+        "title":"AISentiment",
+        "syntax": "AISentiment( Text )",
+        "description": "AISentiment detects the sentiment of the text that you provide. For example, this function detects whether the sentiment of a customer review is positive, negative, or neutral.",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AISentiment( {Text:Subject} ).AnalyzedSentiment )",
+            "description": "In canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "aisummarize": {
+        "title":"AISummarize",
+        "syntax": "AISummarize( Text )",
+        "description": "AISummarize summarizes the text that you provide. For example, this function summarizes an email message or text from a document.",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AISummarize( {Text:Subject} ).SummarizedText )",
+            "description": "In canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "aitranslate": {
+        "title":"AITranslate",
+        "syntax": "AITranslate(Text, TargetLanguage)",
+        "description": "AITranslate translates text from another language. For example, this function translates a customer email or product review. The source language doesn't need to be specified, and is automatically detected.",
+        "examples": [
+          {
+            "code": "Set( Result, Environment.AITranslate( {Text:Subject, Language: 'fr'} ).TranslatedText )",
+            "description": "In canvas apps, set the OnSelect property of the Button control to:"
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+      },
+      "addcolumns": {
+        "title":"AddColumns",
+        "syntax": "AddColumns( Table, ColumnName1, Formula1 [, ColumnName2, Formula2, ... ] )",
+        "description": "The AddColumns function adds a column to a table, and a formula defines the values in that column. Existing columns remain unmodified.",
+        "examples": [
+          {
+            "code": "AddColumns( IceCreamSales, Revenue, UnitPrice * QuantitySold ",
+            "description": "Adds a Revenue column to the result. For each record, UnitPrice * QuantitySold is evaluated, and the result is placed in the new column."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-table-shaping"
+      },
+      "and": {
+        "title":"And",
+        "syntax": "And( LogicalFormula1, LogicalFormula2 [, LogicalFormula3, ... ] )",
+        "description": "The And function returns true if all of its arguments are true.",
+        "examples": [
+          {
+            "code": "And( a, b )",
+            "description": "Tests the values of a and b. One of the arguments is false, so the function returns false."
+          },
+          {
+            "code": "a And b",
+            "description": "Same as the previous example, using Visual Basic notation."
+          },
+          {
+            "code": "a && b",
+            "description": "Same as the previous example, using JavaScript notation."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-logicals"
+      },
+      "asin": {
+        "title":"Asin",
+        "syntax": "Asin( Number ), Asin( SingleColumnTable )",
+        "description": "The Asin function returns the arcsine, or inverse sine, of its argument. The arcsine is the angle whose sine is the argument. The returned angle is given in radians in the range -π/2 to π/2.",
+        "examples": [
+          {
+            "code": "Asin( 1 )",
+            "description": "Returns the arcsine of 1, in radians, e.g: 1.570796..."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-trig"
+      },
+      "assert": {
+        "title":"Assert",
+        "syntax": "Assert(expression, message)",
+        "description": "An assertion is a condition or an expression that evaluates to true or false in a test. If the expression returns false, the test case will fail. Assertions are used to validate the expected result of a test or test step, against the actual result and to fail the test if the condition is false. Assertions can be used to validate the state of controls in your app such as label values, list box selections and other control properties.",
+        "examples": [
+          {
+            "code": "Assert(lblResult.Text = 'Success', 'lblResult value Expected : Success , Actual : ' & lblResult.Text)'" ,
+            "description": ""
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-assert"
+      }
+    },
+    "powerautomate": {
+      "addhours": {
+        "title":"addHours",
+        "syntax": "addHours",
+        "description": "Adds a specific number of hours to a timestamp.",
+        "examples": [
+          {
+            "code": "addHours(triggerOutputs()?['headers']['x-ms-file-last-modified'], 3)",
+            "description": "Adds 3 hours to a file's last modified timestamp."
+          }
+        ],
+        "link": "https://learn.microsoft.com/en-us/power-automate/expressions-reference#addhours"
+      }
+    }
+  }
+  
+
+
+
