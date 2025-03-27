@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Power Platform CodeHelper-Snippets",
+  "description": "Power Platform CodeHelper-Snippets is a Chrome extension for Power Apps and Power Automate developers to search Power Fx functions, view syntax examples, and generate code snippets.",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "assets/img/icon-16.png",
+      "48": "assets/img/icon-48.png",
+      "128": "assets/img/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/img/icon-16.png",
+    "48": "assets/img/icon-48.png",
+    "128": "assets/img/icon-128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/data/functions.json"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+}

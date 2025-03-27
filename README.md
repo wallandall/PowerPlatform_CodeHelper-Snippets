@@ -1,6 +1,6 @@
 # Power Platform CodeHelper Snippets
 
-**Power Platform CodeHelper Snippets** is a Chrome Extension designed for developers working with **Microsoft Power Apps** and **Power Automate**. It provides instant access to Power Fx and expression syntax, usage examples, and code snippets — all from your browser toolbar.
+**CodeHelper Snippets** is a Chrome Extension designed for developers working with **Microsoft Power Apps** and **Power Automate**. It provides instant access to Power Fx and expression syntax, usage examples, and code snippets — all from your browser toolbar.
 
 ---
 
@@ -25,7 +25,39 @@
 
 ## 🖼 Extension Preview
 
-> *(Insert screenshots here — `popup UI`, `function list`, `search in action`, etc.)*
+### Initial Screen
+🔹 ***Initial Screen***
+
+When you load the extension, you'll be prompted to select either Power Apps or Power Automate from the dropdown menu:
+
+![Power Platform CodeHelper Snippets](assets/img/initial.png)
+
+🔍 ***Searching for Functions***
+
+After selecting a platform, you'll have two options:
+
+Use the Search tab to find specific functions.
+
+Switch to the Function List tab to browse all available functions in a table format.
+
+As you begin typing in the search field, an autocomplete dropdown will appear with matching function suggestions based on your input:
+
+![Power Platform CodeHelper Snippets](assets/img/autocomplete.png)
+
+Clicking on a suggestion will display the full function details, including its description and usage examples:
+
+![Power Platform CodeHelper Snippets](assets/img/result.png)
+
+
+Clicking on the Function list button will display clicable functions for the selected environment.
+
+📋 ***Viewing All Functions***
+
+By clicking on the Function List tab, you'll see a searchable, clickable table of all available functions for the selected environment:
+
+![Power Platform CodeHelper Snippets](assets/img/table.png)
+
+Each row is interactive, clicking on a function will reveal its full details in the output panel.
 
 ---
 

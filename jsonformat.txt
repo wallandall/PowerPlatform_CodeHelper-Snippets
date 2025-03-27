@@ -1,0 +1,12 @@
+  "Function_Name": {
+        "title":"Function_Name",
+        "syntax": "Function_Syntax,
+        "description": "Description_text",
+        "examples": [
+          {
+            "code": "example_code",
+            "description": "Example_code_description"
+          }
+        ],
+        "link": "Link_to_documentation"
+      }

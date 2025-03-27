@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeHelper Snippets</title>
+  <link rel="stylesheet" href="assets/styles/style.css" />
+</head>
+<body>
+
+  <div class="header-row">
+    <div class="title-group">
+      <h1>Power Platform</h1>
+      <h2> CodeHelper Snippets</h2>
+    </div>
+    <select id="resources">
+      <option value="">-- Select --</option>
+      <option value="powerapps">Power Apps</option>
+      <option value="powerautomate">Power Automate</option>
+    </select>
+  </div>
+  
+
+  <div class="tabs">
+    <button class="tab-button active" data-tab="search-tab">Search</button>
+    <button class="tab-button" data-tab="list-tab">Function List</button>
+  </div>
+
+  <div id="search-tab" class="tab-content active">
+    <div class="input-row">
+      <input type="text" id="inputField" placeholder="Type a function name..." autocomplete="off" />
+      <button id="actionBtn">Go</button>
+      <ul id="autocompleteList" class="autocomplete-list"></ul>
+    </div>
+  </div>
+
+  <div id="list-tab" class="tab-content">
+    <div class="toggle-row">
+      <span id="toggleTableBtn" class="toggle-button">
+        <span class="toggle-sign">−</span> Hide Function List
+      </span>
+    </div>
+    <table id="functionTable" class="function-table">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="output" class="output-box"></div>
+
+  <script src="assets/js/index.js"></script>
+</body>
+</html>
