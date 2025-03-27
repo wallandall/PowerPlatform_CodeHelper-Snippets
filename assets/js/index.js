@@ -8,27 +8,88 @@ const toggleBtn = document.getElementById("toggleTableBtn");
 const toggleSign = toggleBtn.querySelector(".toggle-sign");
 const tabButtons = document.querySelectorAll(".tab-button");
 const tabContents = document.querySelectorAll(".tab-content");
+const output = document.getElementById("output");
 
 let functionMap = {};
 
-// Hide tabs and inputs by default
 window.addEventListener("DOMContentLoaded", () => {
+  resetUI();
+  output.innerHTML = `
+  <div>
+    <p><strong>Power Platform CodeHelper Snippets</strong> is a Chrome extension designed to help developers quickly find and understand functions used in Power Apps and Power Automate.</p>
+    <p><strong>Instructions:</strong> Select an option from the dropdown above to search for specific functions, or use the Function Table to view a full list.</p>
+    <p><strong>Version:</strong> 1.0.0</p>
+  </div>
+  `;
+});
+
+function resetUI() {
   inputField.disabled = true;
-  actionBtn.disabled = true;
+  inputField.style.display = "none";
+  actionBtn.style.display = "none";
+  inputField.value = "";
+  output.innerHTML = "";
+  autocompleteList.innerHTML = "";
   inputField.placeholder = "Select a platform to get started";
   inputField.title = "Select a platform from the dropdown above";
 
   tabButtons.forEach(btn => {
     btn.disabled = true;
     btn.style.display = "none";
-    btn.title = "Please select a platform";
+    btn.classList.remove("active");
   });
 
   tabContents.forEach(tab => {
     tab.style.display = "none";
+    tab.classList.remove("active");
   });
 
   table.style.display = "none";
+  toggleBtn.style.display = "none";
+  toggleSign.textContent = "+";
+  toggleBtn.lastChild.textContent = " Show Function List";
+  body.classList.remove("powerapps-theme", "powerautomate-theme");
+}
+
+// Dropdown change
+dropdown.addEventListener("change", () => {
+  resetUI();
+  const selected = dropdown.value;
+  const isValid = selected.includes("powerapps") || selected.includes("powerautomate");
+
+  if (!isValid) {
+    output.innerHTML = `
+    <div>
+      <p><strong>Power Platform CodeHelper Snippets</strong> is a Chrome extension designed to help developers quickly find and understand functions used in Power Apps and Power Automate.</p>
+      <p><strong>Instructions:</strong> Select an option from the dropdown above to search for specific functions, or use the Function Table to view a full list.</p>
+      <p><strong>Version:</strong> 1.0.0</p>
+    </div>
+    `;
+    return;
+  }
+
+  if (selected.includes("powerapps")) {
+    body.classList.add("powerapps-theme");
+  } else if (selected.includes("powerautomate")) {
+    body.classList.add("powerautomate-theme");
+  }
+
+  inputField.disabled = false;
+  inputField.style.display = "inline-block";
+  inputField.placeholder = "Type a function name...";
+  inputField.title = "";
+
+  tabButtons.forEach(btn => {
+    btn.disabled = false;
+    btn.style.display = "block";
+    btn.title = "";
+  });
+
+  const searchTabButton = document.querySelector('[data-tab="search-tab"]');
+  const searchTabContent = document.getElementById("search-tab");
+  searchTabButton.classList.add("active");
+  searchTabContent.classList.add("active");
+  searchTabContent.style.display = "block";
 });
 
 // Tab switching
@@ -39,87 +100,38 @@ tabButtons.forEach(button => {
     tabButtons.forEach(btn => btn.classList.remove("active"));
     tabContents.forEach(tab => tab.classList.remove("active"));
     button.classList.add("active");
-    document.getElementById(button.dataset.tab).classList.add("active");
+    const tabId = button.dataset.tab;
+    const tabContent = document.getElementById(tabId);
+    tabContent.classList.add("active");
+    tabContent.style.display = "block";
 
     inputField.value = "";
     autocompleteList.innerHTML = "";
-    document.getElementById("output").innerHTML = "";
+    output.innerHTML = "";
 
-    // ✅ Show table only in list-tab
-    if (button.dataset.tab === "list-tab") {
-      table.style.display = "table";
-      toggleSign.textContent = "−";
-      toggleBtn.lastChild.textContent = " Hide Function List";
-    } else {
-      table.style.display = "none";
+    const isListTab = tabId === "list-tab";
+    inputField.style.display = isListTab ? "none" : "inline-block";
+    toggleBtn.style.display = isListTab ? "inline-block" : "none";
+    table.style.display = isListTab ? "table" : "none";
+    toggleSign.textContent = isListTab ? "−" : "+";
+    toggleBtn.lastChild.textContent = isListTab ? " Hide Function List" : " Show Function List";
+
+    if (isListTab) {
+      populateFunctionTable();
     }
   });
 });
 
-// Load JSON
-fetch("assets/data/functions.json")
-  .then(res => res.json())
-  .then(data => {
-    functionMap = data;
-    populateFunctionTable();
-  });
-
-// Handle dropdown change
-dropdown.addEventListener("change", () => {
-  body.classList.remove("powerapps-theme", "powerautomate-theme");
-
-  const selected = dropdown.value;
-  const isValid = selected.includes("powerapps") || selected.includes("powerautomate");
-
-  inputField.disabled = !isValid;
-  actionBtn.disabled = !isValid;
-  inputField.placeholder = isValid ? "Type a function name..." : "Select a platform to get started";
-  inputField.title = isValid ? "" : "Select a platform from the dropdown above";
-
-  tabButtons.forEach(btn => {
-    btn.disabled = !isValid;
-    btn.style.display = isValid ? "block" : "none";
-    btn.title = isValid ? "" : "Please select a platform";
-  });
-
-  tabContents.forEach(tab => {
-    tab.style.display = isValid ? "block" : "none";
-  });
-
-  if (isValid && selected.includes("powerapps")) {
-    body.classList.add("powerapps-theme");
-  } else if (isValid && selected.includes("powerautomate")) {
-    body.classList.add("powerautomate-theme");
-  }
-
-  inputField.value = "";
-  autocompleteList.innerHTML = "";
-  document.getElementById("output").innerHTML = "";
-  table.style.display = "none";
-
-  populateFunctionTable();
-});
-
-// Search
-actionBtn.addEventListener("click", () => {
-  const platformKey = getPlatformKey();
-  const inputKey = inputField.value.trim().toLowerCase();
-  const content = functionMap[platformKey]?.[inputKey];
-  displayFunction(content);
-  inputField.value = "";
-  autocompleteList.innerHTML = "";
-});
-
-// Autocomplete
 inputField.addEventListener("input", () => {
-  const platformKey = getPlatformKey();
-  const val = inputField.value.trim().toLowerCase();
+  const val = inputField.value.trim();
+  output.innerHTML = "";
   autocompleteList.innerHTML = "";
 
-  if (!val || val.length < 3 || !functionMap[platformKey]) return;
+  const platformKey = getPlatformKey();
+  if (val.length < 2 || !functionMap[platformKey]) return;
 
   Object.keys(functionMap[platformKey]).forEach(key => {
-    if (key.includes(val)) {
+    if (key.includes(val.toLowerCase())) {
       const li = document.createElement("li");
       li.textContent = functionMap[platformKey][key].title;
       li.dataset.key = key;
@@ -139,34 +151,35 @@ autocompleteList.addEventListener("click", (e) => {
   }
 });
 
-// Toggle collapse
 toggleBtn.addEventListener("click", () => {
   const isVisible = table.style.display !== "none";
-  table.style.display = isVisible ? "none" : "table";
-  toggleSign.textContent = isVisible ? "+" : "−";
-  toggleBtn.lastChild.textContent = isVisible ? " Show Function List" : " Hide Function List";
+  if (isVisible) {
+    table.style.display = "none";
+    output.innerHTML = "";
+    toggleSign.textContent = "+";
+    toggleBtn.lastChild.textContent = " Show Function List";
+  } else {
+    table.style.display = "table";
+    toggleSign.textContent = "−";
+    toggleBtn.lastChild.textContent = " Hide Function List";
+  }
 });
 
-// Click on row
 document.querySelector("#functionTable tbody").addEventListener("click", (e) => {
   const row = e.target.closest("tr");
   if (!row) return;
-
   const platformKey = getPlatformKey();
   const key = row.dataset.key;
   const content = functionMap[platformKey]?.[key];
   displayFunction(content);
-
   table.style.display = "none";
   toggleSign.textContent = "+";
   toggleBtn.lastChild.textContent = " Show Function List";
 });
 
-// Populate function list
 function populateFunctionTable() {
   const tableBody = document.querySelector("#functionTable tbody");
   tableBody.innerHTML = "";
-
   const platformKey = getPlatformKey();
   const functions = functionMap[platformKey];
   if (!functions) return;
@@ -180,11 +193,8 @@ function populateFunctionTable() {
   });
 }
 
-// Show selected function
 function displayFunction(content) {
-  const result = document.getElementById("output");
-  if (!result || !content) return;
-
+  if (!output || !content) return;
   let examplesHTML = "";
 
   if (Array.isArray(content.examples)) {
@@ -197,16 +207,16 @@ function displayFunction(content) {
     `).join("");
   }
 
-  result.innerHTML = `
-    <strong>Function:</strong> ${content.title}<br>
-    <strong>Description:</strong> ${content.description}<br><br>
+  output.innerHTML = `
+    <strong>Function: </strong> ${content.title}<br><br>
+    <strong>Syntax:</strong> <br><code class="example-code">${content.syntax}</code><br>
+    <strong>Description:</strong> <br>${content.description}<br><br>
     <strong>Examples:</strong><br>
     ${examplesHTML}
     <br><strong>Official documentation:</strong> <a href="${content.link}" target="_blank">Click here</a>
   `;
 }
 
-// Determine platform
 function getPlatformKey() {
   return dropdown.value.includes("powerapps")
     ? "powerapps"
@@ -214,3 +224,10 @@ function getPlatformKey() {
     ? "powerautomate"
     : "";
 }
+
+fetch("assets/data/functions.json")
+  .then(res => res.json())
+  .then(data => {
+    functionMap = data;
+    populateFunctionTable();
+  });
